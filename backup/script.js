@@ -46,15 +46,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return '';
     }
 
-    function getStatusBadgeClass(status) {
-        if (!status) return '';
-        var l = status.toLowerCase();
-        if (l.indexOf('completed') !== -1) return 'status-completed';
-        if (l.indexOf('ongoing') !== -1 || l.indexOf('in progress') !== -1) return 'status-ongoing';
-        if (l.indexOf('upcoming') !== -1 || l.indexOf('planned') !== -1) return 'status-upcoming';
-        return '';
-    }
-
     // ─────────────────────────────────────
     // EDUCATION & EXPERIENCE
     // ─────────────────────────────────────
@@ -139,73 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ─────────────────────────────────────
-    // PROJECTS
-    // ─────────────────────────────────────
-    var projectsContainer = document.getElementById('projectsContainer');
-    var projectsCountEl = document.getElementById('projectsCount');
-
-    if (typeof PROJECTS_DATA !== 'undefined' && PROJECTS_DATA.length > 0) {
-        renderProjects(PROJECTS_DATA);
-    } else {
-        if (projectsContainer) {
-            projectsContainer.innerHTML = '<p class="no-data-message">No projects found.</p>';
-        }
-    }
-
-    function renderProjects(projects) {
-        if (!projectsContainer) return;
-        
-        if (projectsCountEl) {
-            projectsCountEl.textContent = 'Total ' + projects.length + ' project' + (projects.length > 1 ? 's' : '');
-        }
-
-        projects.forEach(function (project, index) {
-            var card = document.createElement('div');
-            card.className = 'project-card';
-            card.style.animationDelay = (index * 0.1) + 's';
-
-            var statusBadge = '';
-            if (project.status) {
-                statusBadge = '<span class="project-status ' + getStatusBadgeClass(project.status) + '">' + project.status + '</span>';
-            }
-
-            var fundingInfo = '';
-            if (project.funding) {
-                fundingInfo = '<div class="project-funding"><i class="fas fa-rupee-sign"></i> ' + project.funding + '</div>';
-            }
-
-            var roleInfo = '';
-            if (project.role) {
-                roleInfo = '<div class="project-role"><i class="fas fa-user-tag"></i> ' + project.role + '</div>';
-            }
-
-            var descInfo = '';
-            if (project.description) {
-                descInfo = '<p class="project-description">' + project.description + '</p>';
-            }
-
-            card.innerHTML =
-                '<div class="project-header">' +
-                    '<span class="project-number">' + (index + 1) + '</span>' +
-                    '<div class="project-title-wrap">' +
-                        '<h3 class="project-title">' + project.title + '</h3>' +
-                        statusBadge +
-                    '</div>' +
-                '</div>' +
-                '<div class="project-meta">' +
-                    '<div class="project-authors"><i class="fas fa-users"></i> ' + project.authors + '</div>' +
-                    '<div class="project-org"><i class="fas fa-building"></i> ' + project.organization + '</div>' +
-                    '<div class="project-year"><i class="fas fa-calendar"></i> ' + project.year + '</div>' +
-                    fundingInfo +
-                    roleInfo +
-                '</div>' +
-                descInfo;
-
-            projectsContainer.appendChild(card);
-        });
-    }
-
-    // ─────────────────────────────────────
     // PARTICIPATION
     // ─────────────────────────────────────
     function renderTableRows(data, bodyId, fields) {
@@ -254,13 +178,17 @@ document.addEventListener('DOMContentLoaded', function () {
     // ─────────────────────────────────────
     // AUTO-FETCH GALLERY IMAGES
     // ─────────────────────────────────────
+    // Tries loading images/photo1.jpg, images/photo2.jpg, etc.
+    // Supports: .jpg, .jpeg, .png, .webp, .gif
+    // Just drop files named photo1, photo2, photo3... in images/ folder
+
     var galleryImages = [];
     var galleryLoading = document.getElementById('galleryLoading');
     var carouselOuter = document.getElementById('carouselOuter');
     var galleryCountEl = document.getElementById('galleryCount');
 
     var SUPPORTED_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'gif'];
-    var MAX_IMAGES_TO_CHECK = 50;
+    var MAX_IMAGES_TO_CHECK = 50; // max images to scan
 
     function tryLoadImage(index) {
         return new Promise(function (resolve) {
@@ -299,6 +227,8 @@ document.addEventListener('DOMContentLoaded', function () {
             if (result) {
                 results.push(result);
             } else {
+                // Stop scanning when first gap is found
+                // But continue checking a few more in case of gaps
                 var gapCheck = 0;
                 var continueChecking = true;
                 for (var j = i + 1; j <= Math.min(i + 3, MAX_IMAGES_TO_CHECK); j++) {
@@ -308,14 +238,15 @@ document.addEventListener('DOMContentLoaded', function () {
                         gapCheck = j;
                     }
                 }
-                if (gapCheck === 0) break;
-                i = gapCheck;
+                if (gapCheck === 0) break; // No more images found
+                i = gapCheck; // Continue from last found
             }
         }
 
         return results;
     }
 
+    // Start scanning and build carousel
     scanImagesFolder().then(function (images) {
         galleryImages = images;
 
@@ -382,6 +313,7 @@ document.addEventListener('DOMContentLoaded', function () {
             inner.appendChild(caption);
             slide.appendChild(inner);
 
+            // Click to open modal
             slide.addEventListener('click', function () {
                 openImageModal(idx);
             });
@@ -403,6 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentPage >= totalPages) currentPage = totalPages - 1;
         if (currentPage < 0) currentPage = 0;
 
+        // Set slide widths
         var viewportWidth = carouselViewport.offsetWidth;
         var gap = 16;
         var slideWidth = (viewportWidth - gap * (perView - 1)) / perView;
@@ -414,12 +347,15 @@ document.addEventListener('DOMContentLoaded', function () {
             s.style.paddingRight = (gap / 2) + 'px';
         });
 
+        // Move track
         var offset = currentPage * (slideWidth + gap);
         carouselTrack.style.transform = 'translateX(-' + offset + 'px)';
 
+        // Update arrows
         if (prevArrow) prevArrow.disabled = (currentPage <= 0);
         if (nextArrow) nextArrow.disabled = (currentPage >= totalPages - 1);
 
+        // Update dots
         buildDots();
     }
 
@@ -444,6 +380,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     }
 
+    // Arrow clicks
     if (prevArrow) {
         prevArrow.addEventListener('click', function () {
             if (currentPage > 0) {
@@ -464,6 +401,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
+    // Auto-play
     function startAutoPlay() {
         stopAutoPlay();
         autoTimer = setInterval(function () {
@@ -485,11 +423,13 @@ document.addEventListener('DOMContentLoaded', function () {
         startAutoPlay();
     }
 
+    // Pause on hover
     if (carouselViewport) {
         carouselViewport.addEventListener('mouseenter', stopAutoPlay);
         carouselViewport.addEventListener('mouseleave', startAutoPlay);
     }
 
+    // Touch swipe for carousel
     var touchSX = 0;
     if (carouselViewport) {
         carouselViewport.addEventListener('touchstart', function (e) {
@@ -508,6 +448,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }, { passive: true });
     }
 
+    // Resize handler
     var resizeTimer;
     window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
@@ -567,12 +508,14 @@ document.addEventListener('DOMContentLoaded', function () {
     if (modalPrevBtn) modalPrevBtn.addEventListener('click', modalGoPrev);
     if (modalNextBtn) modalNextBtn.addEventListener('click', modalGoNext);
 
+    // Close on overlay click
     if (modal) {
         modal.addEventListener('click', function (e) {
             if (e.target === modal || e.target.classList.contains('modal-body')) closeImageModal();
         });
     }
 
+    // Keyboard
     document.addEventListener('keydown', function (e) {
         if (!modal || !modal.classList.contains('show')) return;
         if (e.key === 'Escape') closeImageModal();
@@ -580,6 +523,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (e.key === 'ArrowRight') modalGoNext();
     });
 
+    // Touch swipe in modal
     var mTouchSX = 0;
     if (modal) {
         modal.addEventListener('touchstart', function (e) {
