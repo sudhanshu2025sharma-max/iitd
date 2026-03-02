@@ -34,17 +34,6 @@
         </div>
     </div>
 
-    <!-- Video Modal Overlay -->
-    <div class="video-modal-overlay" id="videoModal">
-        <button class="video-modal-close" id="videoModalClose" aria-label="Close"><i class="fas fa-times"></i></button>
-        <div class="video-modal-body">
-            <div class="video-modal-container" id="videoModalContainer">
-                <!-- Video iframe will be injected here -->
-            </div>
-            <p class="video-modal-title" id="videoModalTitle"></p>
-        </div>
-    </div>
-
     <div class="main-container">
 
         <!-- Header -->
@@ -97,11 +86,6 @@
                     <li class="nav-item">
                         <button class="nav-btn" data-tab="projects">
                             <i class="fas fa-project-diagram"></i> <span>Projects</span>
-                        </button>
-                    </li>
-                    <li class="nav-item">
-                        <button class="nav-btn" data-tab="moocs">
-                            <i class="fas fa-play-circle"></i> <span>MOOCs</span>
                         </button>
                     </li>
                     <li class="nav-item">
@@ -251,15 +235,6 @@
                     </div>
                 </section>
 
-                <!-- MOOCs -->
-                <section id="moocs" class="tab-content">
-                    <h2 class="section-title"><i class="fas fa-play-circle"></i> MOOCs (Massive Open Online Courses)</h2>
-                    <p id="moocsCount" class="moocs-count-text"></p>
-                    <div class="moocs-container" id="moocsContainer">
-                        <!-- MOOCs will be injected by JS -->
-                    </div>
-                </section>
-
                 <!-- Participation -->
                 <section id="participation" class="tab-content">
                     <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Participation</h2>
@@ -314,7 +289,6 @@
     <script src="data/lectures.js"></script>
     <script src="data/admin.js"></script>
     <script src="data/projects.js"></script>
-    <script src="data/moocs.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
