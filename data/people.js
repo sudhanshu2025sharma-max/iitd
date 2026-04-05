@@ -25,7 +25,7 @@ var PEOPLE_DATA = {
     projectstaff: [
         {
             name: "Mr. Nikhil Raj",
-            image: "ravi_verma.jpg",
+            image: "images/people/Nikhil.jpg",
             duration: "June 2025 - Present",
             currentDesignation: "Research Assistant(ICSSR)"
         }
