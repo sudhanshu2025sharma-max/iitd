@@ -14,8 +14,8 @@ var PEOPLE_DATA = {
     
     fellows: [
         {
-            name: "Mr. Ananya Reddy",
-            image: "ananya_reddy.jpg",
+            name: "Mr. abc",
+            image: "ABC.jpg",
             duration: "June 2024 - July 2024",
             currentDesignation: "Assistant Professor, JNU"
         }
@@ -25,7 +25,7 @@ var PEOPLE_DATA = {
     projectstaff: [
         {
             name: "Mr. Nikhil Raj",
-            image: "/images/people/Nikhil.jpg",
+            image: "Nikhil.jpg",
             duration: "June 2025 - Present",
             currentDesignation: "Research Assistant(ICSSR)"
         }
