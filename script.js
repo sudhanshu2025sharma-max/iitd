@@ -810,3 +810,106 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
 });
+
+
+// ─────────────────────────────────────
+// PEOPLE SECTION WITH SUB-TABS
+// ─────────────────────────────────────
+var peopleTabBtns = document.querySelectorAll('.people-tab-btn');
+var peopleTabContents = document.querySelectorAll('.people-tab-content');
+
+// Sub-tab switching
+peopleTabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var tabId = this.getAttribute('data-people-tab');
+        
+        // Remove active from all buttons and contents
+        peopleTabBtns.forEach(function(b) { b.classList.remove('active'); });
+        peopleTabContents.forEach(function(c) { c.classList.remove('active'); });
+        
+        // Add active to clicked button and corresponding content
+        this.classList.add('active');
+        var targetContent = document.getElementById('people-' + tabId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    });
+});
+
+// Render people function
+function renderPeople(peopleArray, gridId, noDataId, countId) {
+    var grid = document.getElementById(gridId);
+    var noDataMsg = document.getElementById(noDataId);
+    var countEl = document.getElementById(countId);
+    
+    if (!grid) return;
+    
+    // Update count
+    if (countEl) {
+        countEl.textContent = peopleArray ? peopleArray.length : 0;
+    }
+    
+    // Check if data exists
+    if (!peopleArray || peopleArray.length === 0) {
+        grid.innerHTML = '';
+        if (noDataMsg) noDataMsg.style.display = 'block';
+        return;
+    }
+    
+    if (noDataMsg) noDataMsg.style.display = 'none';
+    grid.innerHTML = '';
+    
+    peopleArray.forEach(function(person, index) {
+        var card = document.createElement('div');
+        card.className = 'person-card';
+        card.style.animationDelay = (index * 0.1) + 's';
+        
+        // Determine image path
+        var imagePath = 'images/people/' + (person.image || PEOPLE_DEFAULT_IMAGE);
+        var defaultPath = 'images/people/' + PEOPLE_DEFAULT_IMAGE;
+        
+        // Check if current designation indicates "Present" employment
+        var isPresent = person.duration && person.duration.toLowerCase().indexOf('present') !== -1;
+        var statusBadge = isPresent ? '<span class="person-status-badge active">Active</span>' : '<span class="person-status-badge alumni">Alumni</span>';
+        
+        card.innerHTML = 
+            '<div class="person-image-wrapper">' +
+                '<img src="' + imagePath + '" alt="' + person.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
+                statusBadge +
+            '</div>' +
+            '<div class="person-info">' +
+                '<h3 class="person-name">' + person.name + '</h3>' +
+                '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + person.duration + '</div>' +
+                '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + person.currentDesignation + '</div>' +
+            '</div>';
+        
+        grid.appendChild(card);
+    });
+}
+
+// Initialize people data
+if (typeof PEOPLE_DATA !== 'undefined') {
+    // Render Interns
+    renderPeople(
+        PEOPLE_DATA.interns, 
+        'internsGrid', 
+        'noInterns', 
+        'internsCount'
+    );
+    
+    // Render Summer Faculty Research Fellows
+    renderPeople(
+        PEOPLE_DATA.fellows, 
+        'fellowsGrid', 
+        'noFellows', 
+        'fellowsCount'
+    );
+    
+    // Render Project Staff
+    renderPeople(
+        PEOPLE_DATA.projectstaff, 
+        'projectstaffGrid', 
+        'noProjectstaff', 
+        'projectstaffCount'
+    );
+}

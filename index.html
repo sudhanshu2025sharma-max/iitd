@@ -110,6 +110,11 @@
                         </button>
                     </li>
                     <li class="nav-item">
+                        <button class="nav-btn" data-tab="people">
+                            <i class="fas fa-user-friends"></i> <span>People</span>
+                        </button>
+                    </li>
+                    <li class="nav-item">
                         <button class="nav-btn" data-tab="resources">
                             <i class="fas fa-chalkboard-teacher"></i> <span>Lectures/Resources</span>
                         </button>
@@ -283,6 +288,53 @@
                     </div>
                 </section>
 
+                <!-- People Tab  -->
+                <!-- People -->
+                <section id="people" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-user-friends"></i> People</h2>
+                    
+                    <!-- Sub-tabs Navigation -->
+                    <div class="people-tabs">
+                        <button class="people-tab-btn active" data-people-tab="interns">
+                            <i class="fas fa-user-graduate"></i>
+                            <span>Interns</span>
+                            <span class="people-tab-count" id="internsCount">0</span>
+                        </button>
+                        <button class="people-tab-btn" data-people-tab="fellows">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                            <span>Summer Faculty Research Fellow</span>
+                            <span class="people-tab-count" id="fellowsCount">0</span>
+                        </button>
+                        <button class="people-tab-btn" data-people-tab="projectstaff">
+                            <i class="fas fa-users-cog"></i>
+                            <span>Project Staff</span>
+                            <span class="people-tab-count" id="projectstaffCount">0</span>
+                        </button>
+                    </div>
+                    
+                    <!-- Sub-tab Contents -->
+                    <div class="people-tab-content active" id="people-interns">
+                        <div class="people-grid" id="internsGrid">
+                            <!-- Interns will be injected by JS -->
+                        </div>
+                        <p class="no-people-message" id="noInterns" style="display:none;">No interns found.</p>
+                    </div>
+                    
+                    <div class="people-tab-content" id="people-fellows">
+                        <div class="people-grid" id="fellowsGrid">
+                            <!-- Fellows will be injected by JS -->
+                        </div>
+                        <p class="no-people-message" id="noFellows" style="display:none;">No summer faculty research fellows found.</p>
+                    </div>
+                    
+                    <div class="people-tab-content" id="people-projectstaff">
+                        <div class="people-grid" id="projectstaffGrid">
+                            <!-- Project Staff will be injected by JS -->
+                        </div>
+                        <p class="no-people-message" id="noProjectstaff" style="display:none;">No project staff found.</p>
+                    </div>
+                </section>
+
                 <!-- Lectures/Resources -->
                 <section id="resources" class="tab-content">
                     <h2 class="section-title"><i class="fas fa-chalkboard-teacher"></i> Lectures & Resource Person</h2>
@@ -315,6 +367,7 @@
     <script src="data/admin.js"></script>
     <script src="data/projects.js"></script>
     <script src="data/moocs.js"></script>
+    <script src="data/people.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
