@@ -5,11 +5,29 @@
 var PEOPLE_DATA = {
     interns: [
         {
-            name: "Mr. Arvind",
-            image: "rahul_sharma.jpg",
-            duration: "May 2024 - July 2024",
-            currentDesignation: "IITD"
-        }
+            name: "Mr. Aravind Nair",
+            image: "",
+            duration: " ",
+            currentDesignation: "Library Manager, Sai University"
+        },
+        {
+            name: "Mr. Varun Kumar ",
+            image: " ",
+            duration: " ",
+            currentDesignation: " Assistant Librarian, BHU "
+        },
+        {
+            name: "Mr. Jayant Patel ",
+            image: " ",
+            duration: " ",
+            currentDesignation: " Librarian, ERMS "
+        },
+        {
+            name: " Mr. Sudhsnshu Sharma ",
+            image: " ",
+            duration: "",
+            currentDesignation: " Currently Working"
+        },
     ],
     
     fellows: [
@@ -49,11 +67,24 @@ var PEOPLE_DATA = {
     
     projectstaff: [
         {
+            name: " Mr. Bhavesh Vaid ",
+            image: "",
+            duration: " 2024-2025 ",
+            currentDesignation: " PA, ORCID GPF "
+        },
+        {
             name: "Mr. Nikhil Raj",
             image: "Nikhil.jpg",
-            duration: "June 2025 - Present",
-            currentDesignation: "Research Assistant(ICSSR)"
-        }
+            duration: "2025-2027",
+            currentDesignation: "RA, ICSSR"
+        },
+        {
+            name: " Ms. Siddhi ",
+            image: "",
+            duration: "2025-2027 ",
+            currentDesignation: "RA, ICSSR "
+        },
+
     ]
 };
 
