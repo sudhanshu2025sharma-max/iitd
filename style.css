@@ -2451,6 +2451,7 @@ button:focus,
 .person-status-badge.alumni {
     background: var(--primary);
     color: var(--white);
+   display: none;
 }
 
 /* Person Info */
