@@ -14,11 +14,36 @@ var PEOPLE_DATA = {
     
     fellows: [
         {
-            name: "Mr. abc",
-            image: "ABC.jpg",
-            duration: "June 2024 - July 2024",
-            currentDesignation: "Assistant Professor, JNU"
-        }
+            name: "Dr. K. Kiruthika Devi",
+            image: "",
+            duration: " 2025 ",
+            currentDesignation: "Information Technology, Sri Venkateswara College of Engineering, Sriperumbudur"
+        },
+        {
+            name: " Dr.V.M.Sivagami ",
+            image: " ",
+            duration: " 2025 ",
+            currentDesignation: " Information Technology, Sri Venkateswara College of Engineering, Sriperumbudur "
+        },
+        {
+            name: " Ms. Sneha Raina ",
+            image: " ",
+            duration: " 2024 ",
+            currentDesignation: " Computer Science, Chandigarh University "
+        },
+        {
+            name: " Dr. Rashi Hora ",
+            image: " ",
+            duration: " 2024 ",
+            currentDesignation: "Statistics, GL Bajaj Institute of Management and Research "
+        },
+        {
+            name: " Dr. Shahnawaz Ahmed ",
+            image: " ",
+            duration: " 2023 ",
+            currentDesignation: " Computer Science, Mewat Engineering College "
+        },
+        
 
     ],
     
