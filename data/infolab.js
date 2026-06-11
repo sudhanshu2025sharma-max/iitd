@@ -44,7 +44,7 @@ const INFOLAB_TEAM = [
         role: "Research Assistant",
         duration: "2025 - Present",
         currentDesignation: "",
-        image: "./images/people/default_avatar.png",
+        image: "./images/people/Nikhil.jpg",
         linkedin: "https://www.linkedin.com/in/nikhil-raj-9185b2168/",
         email: "nikhilraj@drtc.isibang.ac.in"
     },
