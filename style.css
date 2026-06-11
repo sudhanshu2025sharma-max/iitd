@@ -2664,3 +2664,402 @@ button:focus,
         height: 150px;
     }
 }
+
+
+/* ===== InfoLab Section ===== */
+
+/* Sub-tabs Navigation */
+.infolab-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid var(--border);
+}
+
+.infolab-tab-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    background: var(--bg);
+    border: 2px solid var(--border);
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text);
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.infolab-tab-btn i {
+    font-size: 0.9rem;
+    color: var(--primary-light);
+}
+
+.infolab-tab-btn:hover {
+    border-color: var(--primary);
+    background: rgba(26, 54, 93, 0.05);
+}
+
+.infolab-tab-btn.active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--white);
+}
+
+.infolab-tab-btn.active i {
+    color: var(--white);
+}
+
+/* Sub-tab Content */
+.infolab-tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.infolab-tab-content.active {
+    display: block;
+}
+
+/* ===== InfoLab Projects ===== */
+.infolab-projects-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.infolab-project-card {
+    background: var(--bg);
+    border-radius: var(--radius);
+    padding: 18px;
+    border-left: 4px solid #9c27b0;
+    transition: var(--transition);
+    animation: projectFadeIn 0.5s ease forwards;
+    opacity: 0;
+    box-shadow: var(--shadow);
+}
+
+.infolab-project-card:hover {
+    box-shadow: var(--shadow-lg);
+    transform: translateX(5px);
+    border-left-color: var(--accent);
+}
+
+.infolab-project-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.infolab-project-number {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    border-radius: 50%;
+    background: #9c27b0;
+    color: var(--white);
+    font-size: 0.85rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+.infolab-project-title-wrap {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.infolab-project-title {
+    font-size: 1rem;
+    color: var(--primary);
+    font-weight: 600;
+    line-height: 1.4;
+    margin: 0;
+}
+
+.infolab-project-description {
+    font-size: 0.82rem;
+    color: var(--text-light);
+    line-height: 1.6;
+    margin: 10px 0;
+    padding-top: 10px;
+    border-top: 1px dashed var(--border);
+}
+
+.infolab-project-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 18px;
+    font-size: 0.82rem;
+    color: var(--text-light);
+    margin-top: 10px;
+}
+
+.infolab-project-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.infolab-project-meta-item i {
+    color: #9c27b0;
+    font-size: 0.78rem;
+    width: 14px;
+    text-align: center;
+}
+
+.infolab-project-actions {
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+}
+
+.infolab-project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    text-decoration: none;
+    background: #9c27b0;
+    color: var(--white);
+    transition: var(--transition);
+}
+
+.infolab-project-link:hover {
+    background: #7b1fa2;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(156, 39, 176, 0.3);
+}
+
+/* ===== InfoLab Team ===== */
+.infolab-team-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.infolab-person-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    animation: personFadeIn 0.5s ease forwards;
+    opacity: 0;
+    border: 1px solid var(--border);
+    border-top: 3px solid #9c27b0;
+}
+
+.infolab-person-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-lg);
+    border-top-color: var(--accent);
+}
+
+.infolab-person-card .person-image-wrapper {
+    position: relative;
+    width: 100%;
+    padding-top: 100%;
+    background: linear-gradient(135deg, var(--bg) 0%, #e2e8f0 100%);
+    overflow: hidden;
+}
+
+.infolab-person-card .person-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.infolab-person-card:hover .person-image {
+    transform: scale(1.05);
+}
+
+.infolab-person-card .person-info {
+    padding: 18px;
+}
+
+.infolab-person-card .person-name {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 8px;
+    line-height: 1.3;
+}
+
+.person-role {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.82rem;
+    color: #9c27b0;
+    font-weight: 600;
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+
+.person-role i {
+    font-size: 0.78rem;
+    margin-top: 3px;
+    width: 14px;
+    flex-shrink: 0;
+    color: #9c27b0;
+}
+
+/* Social Links in person card */
+.person-socials {
+    display: flex;
+    gap: 8px;
+    margin-top: 12px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--border);
+    flex-wrap: wrap;
+}
+
+.person-social-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--white);
+    font-size: 0.75rem;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.person-social-link:hover {
+    background: var(--accent);
+    transform: translateY(-2px);
+}
+
+/* No InfoLab Message */
+.no-infolab-message {
+    text-align: center;
+    padding: 50px 20px;
+    color: var(--text-light);
+    font-size: 0.95rem;
+    background: var(--bg);
+    border-radius: var(--radius);
+}
+
+/* ===== InfoLab Responsive ===== */
+@media (max-width: 479px) {
+    .infolab-tabs {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .infolab-tab-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 12px 16px;
+    }
+
+    .infolab-team-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+
+    .infolab-project-card {
+        padding: 15px;
+    }
+}
+
+@media (min-width: 480px) {
+    .infolab-team-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .infolab-tab-btn {
+        padding: 10px 18px;
+    }
+}
+
+@media (min-width: 600px) {
+    .infolab-tab-btn {
+        padding: 11px 20px;
+        font-size: 0.85rem;
+    }
+
+    .infolab-project-title {
+        font-size: 1.05rem;
+    }
+
+    .infolab-project-card {
+        padding: 20px;
+    }
+}
+
+@media (min-width: 768px) {
+    .infolab-team-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .infolab-tabs {
+        gap: 12px;
+        margin-bottom: 25px;
+        padding-bottom: 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .infolab-team-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 22px;
+    }
+
+    .infolab-person-card:hover {
+        transform: translateY(-8px);
+    }
+
+    .infolab-project-card:hover {
+        transform: translateX(8px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .infolab-team-grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+    }
+}
+
+/* Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+    .infolab-person-card:hover {
+        transform: none;
+        box-shadow: var(--shadow);
+    }
+
+    .infolab-person-card:hover .person-image {
+        transform: none;
+    }
+
+    .infolab-project-card:hover {
+        transform: none;
+        box-shadow: var(--shadow);
+    }
+
+    .infolab-project-link:hover {
+        transform: none;
+    }
+}
