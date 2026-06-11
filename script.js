@@ -913,3 +913,150 @@ if (typeof PEOPLE_DATA !== 'undefined') {
         'projectstaffCount'
     );
 }
+
+// ─────────────────────────────────────
+// INFOLAB SECTION
+// ─────────────────────────────────────
+
+// InfoLab Sub-tab switching
+var infolabTabBtns = document.querySelectorAll('.infolab-tab-btn');
+var infolabTabContents = document.querySelectorAll('.infolab-tab-content');
+
+infolabTabBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+        var tabId = this.getAttribute('data-infolab-tab');
+
+        infolabTabBtns.forEach(function(b) { b.classList.remove('active'); });
+        infolabTabContents.forEach(function(c) { c.classList.remove('active'); });
+
+        this.classList.add('active');
+        var targetContent = document.getElementById('infolab-' + tabId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    });
+});
+
+// Render InfoLab Projects
+function renderInfoLabProjects(projects) {
+    var container = document.getElementById('infolabProjectsContainer');
+    var noDataMsg = document.getElementById('noInfolabProjects');
+
+    if (!container) return;
+
+    if (!projects || projects.length === 0) {
+        container.innerHTML = '';
+        if (noDataMsg) noDataMsg.style.display = 'block';
+        return;
+    }
+
+    if (noDataMsg) noDataMsg.style.display = 'none';
+    container.innerHTML = '';
+
+    projects.forEach(function(project, index) {
+        var card = document.createElement('div');
+        card.className = 'infolab-project-card';
+        card.style.animationDelay = (index * 0.1) + 's';
+
+        var statusBadge = '';
+        if (project.status) {
+            statusBadge = '<span class="project-status ' + getStatusBadgeClass(project.status) + '">' + project.status + '</span>';
+        }
+
+        var descInfo = '';
+        if (project.description) {
+            descInfo = '<p class="infolab-project-description">' + project.description + '</p>';
+        }
+
+        var fundingInfo = '';
+        if (project.funding) {
+            fundingInfo = '<div class="infolab-project-meta-item"><i class="fas fa-rupee-sign"></i> ' + project.funding + '</div>';
+        }
+
+        var linkBtn = '';
+        if (project.link) {
+            linkBtn = '<a href="' + project.link + '" target="_blank" rel="noopener noreferrer" class="infolab-project-link"><i class="fas fa-external-link-alt"></i> View Project</a>';
+        }
+
+        card.innerHTML =
+            '<div class="infolab-project-header">' +
+                '<span class="infolab-project-number">' + (index + 1) + '</span>' +
+                '<div class="infolab-project-title-wrap">' +
+                    '<h3 class="infolab-project-title">' + project.title + '</h3>' +
+                    statusBadge +
+                '</div>' +
+            '</div>' +
+            descInfo +
+            '<div class="infolab-project-meta">' +
+                '<div class="infolab-project-meta-item"><i class="fas fa-calendar"></i> ' + (project.year || '') + '</div>' +
+                (project.domain ? '<div class="infolab-project-meta-item"><i class="fas fa-tags"></i> ' + project.domain + '</div>' : '') +
+                fundingInfo +
+            '</div>' +
+            (linkBtn ? '<div class="infolab-project-actions">' + linkBtn + '</div>' : '');
+
+        container.appendChild(card);
+    });
+}
+
+// Render InfoLab Team
+function renderInfoLabTeam(team) {
+    var grid = document.getElementById('infolabTeamGrid');
+    var noDataMsg = document.getElementById('noInfolabTeam');
+
+    if (!grid) return;
+
+    if (!team || team.length === 0) {
+        grid.innerHTML = '';
+        if (noDataMsg) noDataMsg.style.display = 'block';
+        return;
+    }
+
+    if (noDataMsg) noDataMsg.style.display = 'none';
+    grid.innerHTML = '';
+
+    team.forEach(function(member, index) {
+        var card = document.createElement('div');
+        card.className = 'infolab-person-card';
+        card.style.animationDelay = (index * 0.1) + 's';
+
+        var imagePath = 'images/infolab/' + (member.image || 'default.png');
+        var defaultPath = 'images/infolab/default.png';
+
+        var isActive = member.duration && member.duration.toLowerCase().indexOf('present') !== -1;
+        var statusBadge = isActive
+            ? '<span class="person-status-badge active">Active</span>'
+            : '<span class="person-status-badge alumni">Alumni</span>';
+
+        var socialLinks = '';
+        if (member.linkedin) {
+            socialLinks += '<a href="' + member.linkedin + '" target="_blank" rel="noopener noreferrer" class="person-social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>';
+        }
+        if (member.email) {
+            socialLinks += '<a href="mailto:' + member.email + '" class="person-social-link" title="Email"><i class="fas fa-envelope"></i></a>';
+        }
+
+        card.innerHTML =
+            '<div class="person-image-wrapper">' +
+                '<img src="' + imagePath + '" alt="' + member.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
+                statusBadge +
+            '</div>' +
+            '<div class="person-info">' +
+                '<h3 class="person-name">' + member.name + '</h3>' +
+                '<div class="person-role"><i class="fas fa-user-tag"></i> ' + (member.role || '') + '</div>' +
+                '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + (member.duration || '') + '</div>' +
+                '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + (member.currentDesignation || '') + '</div>' +
+                (socialLinks ? '<div class="person-socials">' + socialLinks + '</div>' : '') +
+            '</div>';
+
+        grid.appendChild(card);
+    });
+}
+
+// Initialize InfoLab data
+if (typeof INFOLAB_PROJECTS !== 'undefined') {
+    renderInfoLabProjects(INFOLAB_PROJECTS);
+}
+
+if (typeof INFOLAB_TEAM !== 'undefined') {
+    renderInfoLabTeam(INFOLAB_TEAM);
+}

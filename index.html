@@ -124,6 +124,11 @@
                             <i class="fas fa-users"></i> <span>Admin/Member</span>
                         </button>
                     </li>
+                    <li class="nav-item">
+                        <button class="nav-btn" data-tab="infolab">
+                            <i class="fas fa-flask"></i> <span>InfoLab</span>
+                        </button>
+                    </li>
                 </ul>
             </aside>
 
@@ -347,6 +352,39 @@
                     <ul class="styled-list" id="adminList"></ul>
                 </section>
 
+                <!-- InfoLab -->
+                <section id="infolab" class="tab-content">
+                    <h2 class="section-title"><i class="fas fa-flask"></i> InfoLab</h2>
+
+                    <!-- Sub-tabs Navigation -->
+                    <div class="infolab-tabs">
+                        <button class="infolab-tab-btn active" data-infolab-tab="projects">
+                            <i class="fas fa-project-diagram"></i>
+                            <span>Projects</span>
+                        </button>
+                        <button class="infolab-tab-btn" data-infolab-tab="team">
+                            <i class="fas fa-users"></i>
+                            <span>Team</span>
+                        </button>
+                    </div>
+
+                    <!-- Projects Sub-tab -->
+                    <div class="infolab-tab-content active" id="infolab-projects">
+                        <div class="infolab-projects-container" id="infolabProjectsContainer">
+                            <!-- Injected by JS -->
+                        </div>
+                        <p class="no-infolab-message" id="noInfolabProjects" style="display:none;">No projects found.</p>
+                    </div>
+
+                    <!-- Team Sub-tab -->
+                    <div class="infolab-tab-content" id="infolab-team">
+                        <div class="infolab-team-grid" id="infolabTeamGrid">
+                            <!-- Injected by JS -->
+                        </div>
+                        <p class="no-infolab-message" id="noInfolabTeam" style="display:none;">No team members found.</p>
+                    </div>
+                </section>
+
             </main>
         </div>
     </div>
@@ -368,6 +406,7 @@
     <script src="data/projects.js"></script>
     <script src="data/moocs.js"></script>
     <script src="data/people.js"></script>
+    <script src="data/infolab.js"></script>
     <script src="script.js"></script>
 </body>
 </html>

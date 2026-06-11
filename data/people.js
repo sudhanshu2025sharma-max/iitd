@@ -20,7 +20,7 @@ var PEOPLE_DATA = {
             name: "Mr. Jayant Patel ",
             image: " ",
             duration: " ",
-            currentDesignation: " Librarian, ERMS "
+            currentDesignation: " Librarian, EMRS "
         },
         {
             name: " Mr. Sudhanshu Sharma ",
