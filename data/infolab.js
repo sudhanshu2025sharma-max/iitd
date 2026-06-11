@@ -1,41 +1,70 @@
 const INFOLAB_PROJECTS = [
     {
-        title: "Project Title Here",
-        description: "Brief description of the project.",
+        title: "Impact and Dynamics of Citations of Scientific Publications Before and After Retraction",
+        description: "Funded by NPTEL (National Programme on Technology Enhanced Learning)",
         status: "Ongoing",        // Ongoing / Completed / Upcoming
-        year: "2023-2025",
-        domain: "Digital Libraries",
-        funding: "₹5,00,000",
-        link: "https://example.com"
+        year: "2026-2027",
+        domain: "Bibliometric Analysis",
+        funding: "₹10,00,000",
+        link: ""
     },
     {
-        title: "Another Project",
-        description: "Description of another project.",
+        title: "Transforming Data Practice with Open Data Editor",
+        description: "Funded by OKFN (Open Knowledge Foundation)",
+        status: "Ongoing",
+        year: "2025-2026",
+        domain: "Open Data",
+        funding: "₹4,32,000",
+        link: ""
+    },
+    {
+        title: "Conversational AI interfaces for Academic Libraries: Building Framework and application using Open Source Software",
+        description: "Funded by ICSSR (Indian Council of Social Science Research)",
+        status: "Ongoing",
+        year: "2025-2027",
+        domain: "Conversational AI",
+        funding: "₹20,35,000",
+        link: ""
+    },
+    {
+        title: "Enhancing Interoperability of Indian research data",
+        description: "Funded by ORCID (Open Researcher and Contributor ID)",
         status: "Completed",
-        year: "2021-2023",
-        domain: "Bibliometrics",
-        funding: "₹3,00,000",
+        year: "2024-2025",
+        domain: "Research data",
+        funding: "₹10,06,943",
         link: ""
     }
 ];
 
 const INFOLAB_TEAM = [
+    
     {
-        name: "Member Name",
-        role: "PhD Research Scholar",
-        duration: "2022 - Present",
-        currentDesignation: "Research Scholar, IIT Delhi",
-        image: "/images/people/default_avatar.png",
-        linkedin: "https://linkedin.com/in/example",
-        email: "example@iitd.ac.in"
+        name: "Nikhil Raj",
+        role: "Research Assistant",
+        duration: "2025 - Present",
+        currentDesignation: "",
+        image: "./images/people/default_avatar.png",
+        linkedin: "https://www.linkedin.com/in/nikhil-raj-9185b2168/",
+        email: "nikhilraj@drtc.isibang.ac.in"
     },
     {
-        name: "Another Member",
-        role: "Project Associate",
-        duration: "2021 - 2023",
-        currentDesignation: "Data Analyst, XYZ Company",
-        image: "/images/people/default_avatar.png",
-        linkedin: "",
-        email: ""
+        name: "Ms. Sanya Gupta",
+        role: "Pre-Doc Fellow",
+        duration: "2026 - Present",
+        currentDesignation: "",
+        image: "../images/people/default_avatar.png",
+        linkedin: "https://linkedin.com",
+        email: "sanya26.cstaff@library.iitd.ac.in"
+    },
+    {
+        name: "Srishti Malu",
+        role: "Pre-Doc Fellow",
+        duration: "2026 - Present",
+        currentDesignation: "",
+        image: "./images/people/default_avatar.png",
+        linkedin: "https://linkedin.com",
+        email: "srimalu.cstaff@library.iitd.ac.in"
     }
+
 ];
