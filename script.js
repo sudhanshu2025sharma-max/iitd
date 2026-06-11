@@ -55,7 +55,6 @@ document.addEventListener('DOMContentLoaded', function () {
         return '';
     }
 
-    // Extract YouTube Video ID from various URL formats
     function getYouTubeVideoId(url) {
         if (!url) return null;
         var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
@@ -63,19 +62,16 @@ document.addEventListener('DOMContentLoaded', function () {
         return (match && match[7].length === 11) ? match[7] : null;
     }
 
-    // Check if URL is a YouTube URL
     function isYouTubeUrl(url) {
         if (!url) return false;
         return url.indexOf('youtube.com') !== -1 || url.indexOf('youtu.be') !== -1;
     }
 
-    // Check if URL is a Vimeo URL
     function isVimeoUrl(url) {
         if (!url) return false;
         return url.indexOf('vimeo.com') !== -1;
     }
 
-    // Extract Vimeo Video ID
     function getVimeoVideoId(url) {
         if (!url) return null;
         var regExp = /vimeo\.com\/(?:video\/)?(\d+)/;
@@ -182,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderProjects(projects) {
         if (!projectsContainer) return;
-        
+
         if (projectsCountEl) {
             projectsCountEl.textContent = 'Total ' + projects.length + ' project' + (projects.length > 1 ? 's' : '');
         }
@@ -249,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function renderMoocs(moocs) {
         if (!moocsContainer) return;
-        
+
         if (moocsCountEl) {
             moocsCountEl.textContent = 'Total ' + moocs.length + ' MOOC' + (moocs.length > 1 ? 's' : '');
         }
@@ -259,15 +255,13 @@ document.addEventListener('DOMContentLoaded', function () {
             card.className = 'mooc-card';
             card.style.animationDelay = (index * 0.1) + 's';
 
-            // Create video embed section
             var videoSection = '';
             if (mooc.videoLink) {
                 var videoId = getYouTubeVideoId(mooc.videoLink);
                 var vimeoId = getVimeoVideoId(mooc.videoLink);
-                
+
                 if (videoId) {
-                    // YouTube embed
-                    videoSection = 
+                    videoSection =
                         '<div class="mooc-video-section">' +
                             '<div class="mooc-video-wrapper">' +
                                 '<iframe src="https://www.youtube.com/embed/' + videoId + '?rel=0" ' +
@@ -278,8 +272,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             '</div>' +
                         '</div>';
                 } else if (vimeoId) {
-                    // Vimeo embed
-                    videoSection = 
+                    videoSection =
                         '<div class="mooc-video-section">' +
                             '<div class="mooc-video-wrapper">' +
                                 '<iframe src="https://player.vimeo.com/video/' + vimeoId + '" ' +
@@ -290,8 +283,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             '</div>' +
                         '</div>';
                 } else {
-                    // Generic video link - show thumbnail with play button
-                    videoSection = 
+                    videoSection =
                         '<div class="mooc-video-section">' +
                             '<a href="' + mooc.videoLink + '" target="_blank" rel="noopener noreferrer" class="mooc-video-external">' +
                                 '<div class="mooc-video-placeholder">' +
@@ -343,7 +335,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ─────────────────────────────────────
-    // VIDEO MODAL (For expanding videos)
+    // VIDEO MODAL
     // ─────────────────────────────────────
     var videoModal = document.getElementById('videoModal');
     var videoModalClose = document.getElementById('videoModalClose');
@@ -352,26 +344,26 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function openVideoModal(videoUrl, title) {
         if (!videoModal) return;
-        
+
         var videoId = getYouTubeVideoId(videoUrl);
         var vimeoId = getVimeoVideoId(videoUrl);
-        
+
         if (videoId) {
-            videoModalContainer.innerHTML = 
+            videoModalContainer.innerHTML =
                 '<iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0" ' +
                 'title="' + title + '" ' +
                 'frameborder="0" ' +
                 'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
                 'allowfullscreen></iframe>';
         } else if (vimeoId) {
-            videoModalContainer.innerHTML = 
+            videoModalContainer.innerHTML =
                 '<iframe src="https://player.vimeo.com/video/' + vimeoId + '?autoplay=1" ' +
                 'title="' + title + '" ' +
                 'frameborder="0" ' +
                 'allow="autoplay; fullscreen; picture-in-picture" ' +
                 'allowfullscreen></iframe>';
         }
-        
+
         if (videoModalTitle) videoModalTitle.textContent = title;
         videoModal.classList.add('show');
         document.body.style.overflow = 'hidden';
@@ -389,12 +381,12 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     if (videoModal) {
-        videoModal.addEventListener('click', function(e) {
+        videoModal.addEventListener('click', function (e) {
             if (e.target === videoModal) closeVideoModal();
         });
     }
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && videoModal && videoModal.classList.contains('show')) {
             closeVideoModal();
         }
@@ -809,254 +801,236 @@ document.addEventListener('DOMContentLoaded', function () {
         observer.observe(item);
     });
 
-});
+    // ─────────────────────────────────────
+    // PEOPLE SECTION WITH SUB-TABS
+    // ─────────────────────────────────────
+    var peopleTabBtns = document.querySelectorAll('.people-tab-btn');
+    var peopleTabContents = document.querySelectorAll('.people-tab-content');
 
+    peopleTabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var tabId = this.getAttribute('data-people-tab');
 
-// ─────────────────────────────────────
-// PEOPLE SECTION WITH SUB-TABS
-// ─────────────────────────────────────
-var peopleTabBtns = document.querySelectorAll('.people-tab-btn');
-var peopleTabContents = document.querySelectorAll('.people-tab-content');
+            peopleTabBtns.forEach(function (b) { b.classList.remove('active'); });
+            peopleTabContents.forEach(function (c) { c.classList.remove('active'); });
 
-// Sub-tab switching
-peopleTabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var tabId = this.getAttribute('data-people-tab');
-        
-        // Remove active from all buttons and contents
-        peopleTabBtns.forEach(function(b) { b.classList.remove('active'); });
-        peopleTabContents.forEach(function(c) { c.classList.remove('active'); });
-        
-        // Add active to clicked button and corresponding content
-        this.classList.add('active');
-        var targetContent = document.getElementById('people-' + tabId);
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
+            this.classList.add('active');
+            var targetContent = document.getElementById('people-' + tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
     });
-});
 
-// Render people function
-function renderPeople(peopleArray, gridId, noDataId, countId) {
-    var grid = document.getElementById(gridId);
-    var noDataMsg = document.getElementById(noDataId);
-    var countEl = document.getElementById(countId);
-    
-    if (!grid) return;
-    
-    // Update count
-    if (countEl) {
-        countEl.textContent = peopleArray ? peopleArray.length : 0;
-    }
-    
-    // Check if data exists
-    if (!peopleArray || peopleArray.length === 0) {
+    function renderPeople(peopleArray, gridId, noDataId, countId) {
+        var grid = document.getElementById(gridId);
+        var noDataMsg = document.getElementById(noDataId);
+        var countEl = document.getElementById(countId);
+
+        if (!grid) return;
+
+        if (countEl) {
+            countEl.textContent = peopleArray ? peopleArray.length : 0;
+        }
+
+        if (!peopleArray || peopleArray.length === 0) {
+            grid.innerHTML = '';
+            if (noDataMsg) noDataMsg.style.display = 'block';
+            return;
+        }
+
+        if (noDataMsg) noDataMsg.style.display = 'none';
         grid.innerHTML = '';
-        if (noDataMsg) noDataMsg.style.display = 'block';
-        return;
-    }
-    
-    if (noDataMsg) noDataMsg.style.display = 'none';
-    grid.innerHTML = '';
-    
-    peopleArray.forEach(function(person, index) {
-        var card = document.createElement('div');
-        card.className = 'person-card';
-        card.style.animationDelay = (index * 0.1) + 's';
-        
-        // Determine image path
-        var imagePath = 'images/people/' + (person.image || PEOPLE_DEFAULT_IMAGE);
-        var defaultPath = 'images/people/' + PEOPLE_DEFAULT_IMAGE;
-        
-        // Check if current designation indicates "Present" employment
-        var isPresent = person.duration && person.duration.toLowerCase().indexOf('present') !== -1;
-        var statusBadge = isPresent ? '<span class="person-status-badge active">Active</span>' : '<span class="person-status-badge alumni">Alumni</span>';
-        
-        card.innerHTML = 
-            '<div class="person-image-wrapper">' +
-                '<img src="' + imagePath + '" alt="' + person.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
-                statusBadge +
-            '</div>' +
-            '<div class="person-info">' +
-                '<h3 class="person-name">' + person.name + '</h3>' +
-                '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + person.duration + '</div>' +
-                '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + person.currentDesignation + '</div>' +
-            '</div>';
-        
-        grid.appendChild(card);
-    });
-}
 
-// Initialize people data
-if (typeof PEOPLE_DATA !== 'undefined') {
-    // Render Interns
-    renderPeople(
-        PEOPLE_DATA.interns, 
-        'internsGrid', 
-        'noInterns', 
-        'internsCount'
-    );
-    
-    // Render Summer Faculty Research Fellows
-    renderPeople(
-        PEOPLE_DATA.fellows, 
-        'fellowsGrid', 
-        'noFellows', 
-        'fellowsCount'
-    );
-    
-    // Render Project Staff
-    renderPeople(
-        PEOPLE_DATA.projectstaff, 
-        'projectstaffGrid', 
-        'noProjectstaff', 
-        'projectstaffCount'
-    );
-}
+        peopleArray.forEach(function (person, index) {
+            var card = document.createElement('div');
+            card.className = 'person-card';
+            card.style.animationDelay = (index * 0.1) + 's';
 
-// ─────────────────────────────────────
-// INFOLAB SECTION
-// ─────────────────────────────────────
+            var imagePath = 'images/people/' + (person.image || PEOPLE_DEFAULT_IMAGE);
+            var defaultPath = 'images/people/' + PEOPLE_DEFAULT_IMAGE;
 
-// InfoLab Sub-tab switching
-var infolabTabBtns = document.querySelectorAll('.infolab-tab-btn');
-var infolabTabContents = document.querySelectorAll('.infolab-tab-content');
+            var isPresent = person.duration && person.duration.toLowerCase().indexOf('present') !== -1;
+            var statusBadge = isPresent ? '<span class="person-status-badge active">Active</span>' : '<span class="person-status-badge alumni">Alumni</span>';
 
-infolabTabBtns.forEach(function(btn) {
-    btn.addEventListener('click', function() {
-        var tabId = this.getAttribute('data-infolab-tab');
-
-        infolabTabBtns.forEach(function(b) { b.classList.remove('active'); });
-        infolabTabContents.forEach(function(c) { c.classList.remove('active'); });
-
-        this.classList.add('active');
-        var targetContent = document.getElementById('infolab-' + tabId);
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
-    });
-});
-
-// Render InfoLab Projects
-function renderInfoLabProjects(projects) {
-    var container = document.getElementById('infolabProjectsContainer');
-    var noDataMsg = document.getElementById('noInfolabProjects');
-
-    if (!container) return;
-
-    if (!projects || projects.length === 0) {
-        container.innerHTML = '';
-        if (noDataMsg) noDataMsg.style.display = 'block';
-        return;
-    }
-
-    if (noDataMsg) noDataMsg.style.display = 'none';
-    container.innerHTML = '';
-
-    projects.forEach(function(project, index) {
-        var card = document.createElement('div');
-        card.className = 'infolab-project-card';
-        card.style.animationDelay = (index * 0.1) + 's';
-
-        var statusBadge = '';
-        if (project.status) {
-            statusBadge = '<span class="project-status ' + getStatusBadgeClass(project.status) + '">' + project.status + '</span>';
-        }
-
-        var descInfo = '';
-        if (project.description) {
-            descInfo = '<p class="infolab-project-description">' + project.description + '</p>';
-        }
-
-        var fundingInfo = '';
-        if (project.funding) {
-            fundingInfo = '<div class="infolab-project-meta-item"><i class="fas fa-rupee-sign"></i> ' + project.funding + '</div>';
-        }
-
-        var linkBtn = '';
-        if (project.link) {
-            linkBtn = '<a href="' + project.link + '" target="_blank" rel="noopener noreferrer" class="infolab-project-link"><i class="fas fa-external-link-alt"></i> View Project</a>';
-        }
-
-        card.innerHTML =
-            '<div class="infolab-project-header">' +
-                '<span class="infolab-project-number">' + (index + 1) + '</span>' +
-                '<div class="infolab-project-title-wrap">' +
-                    '<h3 class="infolab-project-title">' + project.title + '</h3>' +
+            card.innerHTML =
+                '<div class="person-image-wrapper">' +
+                    '<img src="' + imagePath + '" alt="' + person.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
                     statusBadge +
                 '</div>' +
-            '</div>' +
-            descInfo +
-            '<div class="infolab-project-meta">' +
-                '<div class="infolab-project-meta-item"><i class="fas fa-calendar"></i> ' + (project.year || '') + '</div>' +
-                (project.domain ? '<div class="infolab-project-meta-item"><i class="fas fa-tags"></i> ' + project.domain + '</div>' : '') +
-                fundingInfo +
-            '</div>' +
-            (linkBtn ? '<div class="infolab-project-actions">' + linkBtn + '</div>' : '');
+                '<div class="person-info">' +
+                    '<h3 class="person-name">' + person.name + '</h3>' +
+                    '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + person.duration + '</div>' +
+                    '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + person.currentDesignation + '</div>' +
+                '</div>';
 
-        container.appendChild(card);
-    });
-}
-
-// Render InfoLab Team
-function renderInfoLabTeam(team) {
-    var grid = document.getElementById('infolabTeamGrid');
-    var noDataMsg = document.getElementById('noInfolabTeam');
-
-    if (!grid) return;
-
-    if (!team || team.length === 0) {
-        grid.innerHTML = '';
-        if (noDataMsg) noDataMsg.style.display = 'block';
-        return;
+            grid.appendChild(card);
+        });
     }
 
-    if (noDataMsg) noDataMsg.style.display = 'none';
-    grid.innerHTML = '';
+    if (typeof PEOPLE_DATA !== 'undefined') {
+        renderPeople(
+            PEOPLE_DATA.interns,
+            'internsGrid',
+            'noInterns',
+            'internsCount'
+        );
 
-    team.forEach(function(member, index) {
-        var card = document.createElement('div');
-        card.className = 'infolab-person-card';
-        card.style.animationDelay = (index * 0.1) + 's';
+        renderPeople(
+            PEOPLE_DATA.fellows,
+            'fellowsGrid',
+            'noFellows',
+            'fellowsCount'
+        );
 
-        var imagePath = 'images/infolab/' + (member.image || 'default.png');
-        var defaultPath = 'images/infolab/default.png';
+        renderPeople(
+            PEOPLE_DATA.projectstaff,
+            'projectstaffGrid',
+            'noProjectstaff',
+            'projectstaffCount'
+        );
+    }
 
-        var isActive = member.duration && member.duration.toLowerCase().indexOf('present') !== -1;
-        var statusBadge = isActive
-            ? '<span class="person-status-badge active">Active</span>'
-            : '<span class="person-status-badge alumni">Alumni</span>';
+    // ─────────────────────────────────────
+    // INFOLAB SECTION WITH SUB-TABS
+    // ─────────────────────────────────────
+    var infolabTabBtns = document.querySelectorAll('.infolab-tab-btn');
+    var infolabTabContents = document.querySelectorAll('.infolab-tab-content');
 
-        var socialLinks = '';
-        if (member.linkedin) {
-            socialLinks += '<a href="' + member.linkedin + '" target="_blank" rel="noopener noreferrer" class="person-social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>';
-        }
-        if (member.email) {
-            socialLinks += '<a href="mailto:' + member.email + '" class="person-social-link" title="Email"><i class="fas fa-envelope"></i></a>';
-        }
+    infolabTabBtns.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var tabId = this.getAttribute('data-infolab-tab');
 
-        card.innerHTML =
-            '<div class="person-image-wrapper">' +
-                '<img src="' + imagePath + '" alt="' + member.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
-                statusBadge +
-            '</div>' +
-            '<div class="person-info">' +
-                '<h3 class="person-name">' + member.name + '</h3>' +
-                '<div class="person-role"><i class="fas fa-user-tag"></i> ' + (member.role || '') + '</div>' +
-                '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + (member.duration || '') + '</div>' +
-                '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + (member.currentDesignation || '') + '</div>' +
-                (socialLinks ? '<div class="person-socials">' + socialLinks + '</div>' : '') +
-            '</div>';
+            infolabTabBtns.forEach(function (b) { b.classList.remove('active'); });
+            infolabTabContents.forEach(function (c) { c.classList.remove('active'); });
 
-        grid.appendChild(card);
+            this.classList.add('active');
+            var targetContent = document.getElementById('infolab-' + tabId);
+            if (targetContent) {
+                targetContent.classList.add('active');
+            }
+        });
     });
-}
 
-// Initialize InfoLab data
-if (typeof INFOLAB_PROJECTS !== 'undefined') {
-    renderInfoLabProjects(INFOLAB_PROJECTS);
-}
+    function renderInfoLabProjects(projects) {
+        var container = document.getElementById('infolabProjectsContainer');
+        var noDataMsg = document.getElementById('noInfolabProjects');
 
-if (typeof INFOLAB_TEAM !== 'undefined') {
-    renderInfoLabTeam(INFOLAB_TEAM);
-}
+        if (!container) return;
+
+        if (!projects || projects.length === 0) {
+            container.innerHTML = '';
+            if (noDataMsg) noDataMsg.style.display = 'block';
+            return;
+        }
+
+        if (noDataMsg) noDataMsg.style.display = 'none';
+        container.innerHTML = '';
+
+        projects.forEach(function (project, index) {
+            var card = document.createElement('div');
+            card.className = 'infolab-project-card';
+            card.style.animationDelay = (index * 0.1) + 's';
+
+            var statusBadge = '';
+            if (project.status) {
+                statusBadge = '<span class="project-status ' + getStatusBadgeClass(project.status) + '">' + project.status + '</span>';
+            }
+
+            var descInfo = '';
+            if (project.description) {
+                descInfo = '<p class="infolab-project-description">' + project.description + '</p>';
+            }
+
+            var fundingInfo = '';
+            if (project.funding) {
+                fundingInfo = '<div class="infolab-project-meta-item"><i class="fas fa-rupee-sign"></i> ' + project.funding + '</div>';
+            }
+
+            var linkBtn = '';
+            if (project.link) {
+                linkBtn = '<a href="' + project.link + '" target="_blank" rel="noopener noreferrer" class="infolab-project-link"><i class="fas fa-external-link-alt"></i> View Project</a>';
+            }
+
+            card.innerHTML =
+                '<div class="infolab-project-header">' +
+                    '<span class="infolab-project-number">' + (index + 1) + '</span>' +
+                    '<div class="infolab-project-title-wrap">' +
+                        '<h3 class="infolab-project-title">' + project.title + '</h3>' +
+                        statusBadge +
+                    '</div>' +
+                '</div>' +
+                descInfo +
+                '<div class="infolab-project-meta">' +
+                    '<div class="infolab-project-meta-item"><i class="fas fa-calendar"></i> ' + (project.year || '') + '</div>' +
+                    (project.domain ? '<div class="infolab-project-meta-item"><i class="fas fa-tags"></i> ' + project.domain + '</div>' : '') +
+                    fundingInfo +
+                '</div>' +
+                (linkBtn ? '<div class="infolab-project-actions">' + linkBtn + '</div>' : '');
+
+            container.appendChild(card);
+        });
+    }
+
+    function renderInfoLabTeam(team) {
+        var grid = document.getElementById('infolabTeamGrid');
+        var noDataMsg = document.getElementById('noInfolabTeam');
+
+        if (!grid) return;
+
+        if (!team || team.length === 0) {
+            grid.innerHTML = '';
+            if (noDataMsg) noDataMsg.style.display = 'block';
+            return;
+        }
+
+        if (noDataMsg) noDataMsg.style.display = 'none';
+        grid.innerHTML = '';
+
+        team.forEach(function (member, index) {
+            var card = document.createElement('div');
+            card.className = 'infolab-person-card';
+            card.style.animationDelay = (index * 0.1) + 's';
+
+            var imagePath = 'images/infolab/' + (member.image || 'default.png');
+            var defaultPath = 'images/infolab/default.png';
+
+            var isActive = member.duration && member.duration.toLowerCase().indexOf('present') !== -1;
+            var statusBadge = isActive
+                ? '<span class="person-status-badge active">Active</span>'
+                : '<span class="person-status-badge alumni">Alumni</span>';
+
+            var socialLinks = '';
+            if (member.linkedin) {
+                socialLinks += '<a href="' + member.linkedin + '" target="_blank" rel="noopener noreferrer" class="person-social-link" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>';
+            }
+            if (member.email) {
+                socialLinks += '<a href="mailto:' + member.email + '" class="person-social-link" title="Email"><i class="fas fa-envelope"></i></a>';
+            }
+
+            card.innerHTML =
+                '<div class="person-image-wrapper">' +
+                    '<img src="' + imagePath + '" alt="' + member.name + '" class="person-image" onerror="this.onerror=null; this.src=\'' + defaultPath + '\';">' +
+                    statusBadge +
+                '</div>' +
+                '<div class="person-info">' +
+                    '<h3 class="person-name">' + member.name + '</h3>' +
+                    '<div class="person-role"><i class="fas fa-user-tag"></i> ' + (member.role || '') + '</div>' +
+                    '<div class="person-duration"><i class="fas fa-calendar-alt"></i> ' + (member.duration || '') + '</div>' +
+                    '<div class="person-designation"><i class="fas fa-briefcase"></i> ' + (member.currentDesignation || '') + '</div>' +
+                    (socialLinks ? '<div class="person-socials">' + socialLinks + '</div>' : '') +
+                '</div>';
+
+            grid.appendChild(card);
+        });
+    }
+
+    if (typeof INFOLAB_PROJECTS !== 'undefined') {
+        renderInfoLabProjects(INFOLAB_PROJECTS);
+    }
+
+    if (typeof INFOLAB_TEAM !== 'undefined') {
+        renderInfoLabTeam(INFOLAB_TEAM);
+    }
+
+}); // END DOMContentLoaded
